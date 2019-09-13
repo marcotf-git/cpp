@@ -423,8 +423,9 @@ void renderWalls(std::vector<std::shared_ptr<Wall>> walls)
 				SDL_SetRenderDrawColor(gRenderer.get(), 0x00, 0x00, 0xFF, 0xFF);
 				break;
 			case WallType::bottom:
-				double k = (wall->getHeat() / (bottom_temp_max - bottom_temp_min));
-				uint16_t red = uint16_t(0xFF * 0.60 + 0xFF * 0.40 * k);
+				double k = (wall->getHeat() - bottom_temp_min) / (bottom_temp_max + 0.001);
+				double kMin = bottom_temp_min / (bottom_temp_max + 0.001);
+				uint16_t red = uint16_t(0xFF * 0.60 + (0xFF * kMin + 0xFF * k) * 0.40);
 				SDL_SetRenderDrawColor(gRenderer.get(), red, 0x00, 0x00, 0xFF);
 				break;
 		}
@@ -471,7 +472,7 @@ void processPiston(std::shared_ptr<Wall> piston, std::shared_ptr<Wall> bottom,
 			}
 		
 			std::cout << "Time:" << simTime << "\t";
-			std::cout << "balls:" << count << "\t";
+			std::cout << "balls:" << count << "   ";
 			
 			if (gasMode) {
 				std::cout << "gas avg(1.0s) up force : " << std::fixed << std::setprecision(2) << abs(avgUpForce) << "  \t";

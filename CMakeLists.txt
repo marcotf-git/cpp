@@ -18,5 +18,5 @@ find_package(Threads)
 
 
 add_executable(CapstoneProjectCmake "src/Main.cpp" "src/CylinderObject.cpp" "src/Wall.cpp" "src/Ball.cpp")
-string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
+string(STRIP "${SDL2_LIBRARIES}" SDL2_LIBRARIES)
 target_link_libraries(CapstoneProjectCmake ${CMAKE_THREAD_LIBS_INIT} ${SDL2_LIBRARIES} )
