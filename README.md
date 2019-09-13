@@ -177,9 +177,13 @@ Each ball will run in a separate thread, so the program uses concurrent computin
     * The class `MessageQueue`, declared in the `Ball.h` and implemented at `Ball.cpp`, uses as member variables a `std::mutex` and a `std::condition_variable`. In the `receive()` method, it uses a `std::unique_lock` to manage  the `mutex` and temporally unlock it when inside the `wait()` method of the `condition_variable`. This is necessary for the `queue` be updated. When the `queue` is not empty, so we have new data, the `unique_lock` resume the lock to get the message from `queue`. The `queue` is used for communications with the `processPiston()`, line 499-514 of `Main.cpp`, through the `Ball::dataIsAvailable` and `Ball::receiveMsg` member functions. It will inform the piston about the ball collisions. The piston will get the information of the velocity, and process according to each cycle, time computed, to calculate the force that the balls are pushing on it, in the `gas` mode simulation.
     * In the same `processPiston()`, another thread is launched with a Lambda function, to print information about the simulation, line 456-487.
 
-That's it! 🎥
+That's it!
+
+*Marcos Tewfiq (marcotf.dev@gmail.com)*
+
 
 **This app is for learning purposes.** 📚
+
 
 
 # Credits
